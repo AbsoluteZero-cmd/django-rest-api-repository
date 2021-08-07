@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<div class="search_form">
+		<h2>Search form</h4>
+		<form action="">
+			<p>{{ search_form.search_field.label }} {{ search_form.search_field }}</p>
+			<p>{{ search_form.sort_field.label }} {{ search_form.sort_field }}</p>
+			<p>{{ search_form.sort_by.label }} {{ search_form.sort_by }}</p>
+			<input type="submit" value="Search">
+		</form>
+	</div>
+	{% for question in questions %}
+		<div class="question__item">
+			<h3><a href="{% url 'questions:detail' question.pk %}">{{ question.title }}</a></h4>
+			<p>{{ question.pub_date }}</p>
+			<p>Posted by {{ question.author }}</p>
+		</div>
+	{% endfor %}
+
+	{% if is_paginated %}
+        {% if page_obj.has_previous %}
+        	<a href="?page={{ page_obj.previous_page_number }}">Prev</a>
+        {% endif %}
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+        	<a href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}

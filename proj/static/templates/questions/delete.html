@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<h3>Delete question</h3>
+	<form action="" method="post">
+		{% csrf_token %}
+		<p>You really want to delete {{ question.title }}</p>
+		<input type="submit" value="Confirm">
+	</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<form action="" method="post">
+		{% csrf_token %}
+		<p>{{ form.title.label }}</p>
+		{{ form.title }}
+		<p>{{ form.text.label }}</p>
+		{{ form.text }}
+		<input type="submit">
+	</form>
+	
+{% endblock %}

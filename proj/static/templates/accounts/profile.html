@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<h1>{{ user.username }}</h1>
+	<h2>My questions</h2>
+	{% for question in questions %}
+		<div class="my_question_item">
+			<h4><a href="{% url 'questions:detail' question.pk %}">{{ question.title }}</a></h4>
+		</div>
+	{% endfor %}
+{% endblock %}
