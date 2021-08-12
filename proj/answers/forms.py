@@ -1,8 +1,13 @@
 from django import forms
 from .models import Answer
 
-class CreateAnswerForm(forms.ModelForm):
+class AnswerCreateForm(forms.ModelForm):
 
 	class Meta:
 		model = Answer
-		fields = ['text', ]
+		fields = ['text', ] 
+
+
+class AnswerIsRight(forms.Form):
+	answer_id = forms.IntegerField()
+	question_id = forms.IntegerField()

@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-bl@pckrs^ws1^++#-g1xf8e44wvy1smuttjx(2ft)0hr@yc7$5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'questions',
     'accounts',
     'answers',
+    'ratings',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -125,6 +127,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 
 
 LOGOUT_REDIRECT_URL = '/'

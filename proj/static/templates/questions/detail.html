@@ -1,32 +1,61 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+
+	<!-- Question's detail -->
 	<div class="question__detail">
-		<h3>{{ question.title }}</h3>
+		<h3>{{ question.title|title }}</h3>
 		<p>{{ question.text }}</p>
 		<p>Published {{ question.pub_date }}</p>
 		<p>Last update {{ question.update_date }}</p>
 	</div>
 
+	<!-- Author's editing form -->
 	{% if request.user == question.author %}
 		<p><a href="{% url 'questions:edit' question.pk %}">Edit my question</a></p>
 		<p><a href="{% url 'questions:delete' question.pk %}">Delete my question</a></p>
 	{% endif %}
 
-	{% if user.is_authenticated %}
-		<form action="" method="post">
+	<!-- Rating form -->
+	{% if user.is_authenticated and rate is None %}
+		<h4>Rate this question</h4>
+		<form action="{% url 'ratings:rating_form' %}" method="post">
 			{% csrf_token %}
-			<p>{{ form.text.label }}</p>
-				{{ form.text }}
-			<input type="submit">
+			<input type="hidden" name="question_id" value="{{ question.pk }}">
+			{{ rating_form.rate }}
+			<input type="submit" value="Rate">
 		</form>
 	{% endif %}
 
+	<!-- Answer form -->
+	{% if user.is_authenticated %}
+		<h4>Answer the question</h4>
+		<form action="" method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="Send">
+		</form>
+	{% endif %}
+
+	<!-- Answers list -->
+	<h4>Answers:</h4>
 	{% for answer in answers %}
 		<h5>{{ answer.author }}</h5>
 		<p>{{ answer.text }}</p>
 		<p>{{ answer.pub_date }}</p>
 		<p>Last update {{ answer.update_date }}</p>
+		<p>{{ answer.is_right }}</p>
+
+		{% if request.user == question.author %}
+			<h5>Mark answer as right</h5>
+			<form action="{% url 'answers:is_right' %}" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="answer_id" value="{{ answer.id }}">
+				<input type="hidden" name="question_id" value="{{ question.id }}">
+				<input type="submit">
+			</form>
+		{% endif %}
+
 	{% endfor %}
 
 {% endblock %}
