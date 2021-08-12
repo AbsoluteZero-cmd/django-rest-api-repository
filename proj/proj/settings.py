@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'accounts',
     'answers',
     'ratings',
+    'api',
+
+    'rest_framework',
     'sorl.thumbnail',
 ]
 
