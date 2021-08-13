@@ -6,7 +6,6 @@ router = SimpleRouter()
 router.register(r'questions', viewset=QuestionViewSet)
 
 app_name = 'api'
-urlpatterns = [
-]
+urlpatterns = []
 
 urlpatterns += router.urls
