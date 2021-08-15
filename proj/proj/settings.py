@@ -39,16 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'crispy_forms',
+    'rest_framework',
+    'django_filters',
+    'sorl.thumbnail',
+    'social_django',
+
     'questions',
     'accounts',
     'answers',
     'ratings',
     'api',
-
-    'rest_framework',
-    'django_filters',
-    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -111,6 +113,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -147,3 +154,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',)
 }
+
+# SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+SOCIAL_AUTH_GITHUB_KEY = '32be02efa43a2c0532b2'
+SOCIAL_AUTH_GITHUB_SECRET = '3fa4a3c26a7a83821afd93f08a162077239e06be'
